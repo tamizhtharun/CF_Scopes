@@ -313,14 +313,14 @@ export default function ProjectDetails() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded-md text-red-600 mb-4">
+      <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-md text-destructive mb-4">
         Error: {error}
         <button onClick={() => setError(null)} className="ml-2 underline">Dismiss</button>
       </div>
@@ -329,37 +329,37 @@ export default function ProjectDetails() {
 
   return (
     <div>
-      <Link to="/" className="inline-flex items-center text-slate-400 hover:text-slate-600 mb-6 transition-colors">
+      <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
       </Link>
 
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-3xl font-bold text-slate-900">{project?.project_name}</h1>
-          <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-100">
+          <h1 className="text-3xl font-bold text-foreground">{project?.project_name}</h1>
+          <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full border border-primary/20">
             {project?.client_company}
           </span>
         </div>
-        <p className="text-slate-500">{project?.project_description}</p>
+        <p className="text-muted-foreground">{project?.project_description}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Main Content Area - Scope Generation */}
         <div className="md:col-span-2 space-y-6">
-          <div className="card bg-white shadow-sm border-slate-200">
+          <div className="bg-card text-card-foreground shadow-sm rounded-xl border border-border p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-500" />
+              <h2 className="text-xl font-semibold text-card-foreground flex items-center gap-2">
+                <FileText className="w-5 h-5 text-primary" />
                 Scope Generator
               </h2>
             </div>
 
             <div className="space-y-4">
-              <label className="block text-sm font-medium text-slate-700">
+              <label className="block text-sm font-medium text-foreground">
                 Meeting Transcript / Requirements
               </label>
               <textarea
-                className="input min-h-[200px] font-mono text-sm"
+                className="flex min-h-[200px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring font-mono"
                 placeholder="Paste your meeting transcript here..."
                 value={scopingInput?.meeting_transcript || ''}
                 onChange={(e) => setScopingInput(prev => ({ ...prev, meeting_transcript: e.target.value }))}
@@ -367,7 +367,7 @@ export default function ProjectDetails() {
 
               <div className="flex justify-end">
                 <button
-                  className="btn btn-primary"
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2 gap-2"
                   onClick={handleGenerateScope}
                   disabled={analyzing || !scopingInput?.meeting_transcript}
                 >
@@ -386,7 +386,7 @@ export default function ProjectDetails() {
               <button
                 onClick={handleShare}
                 disabled={sharing}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-all shadow-sm hover:shadow-md"
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 gap-2 disabled:opacity-50"
               >
                 {sharing ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -400,10 +400,10 @@ export default function ProjectDetails() {
 
               <button
                 onClick={() => setEditable(!editable)}
-                className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all shadow-sm ${
+                className={`inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-9 px-4 py-2 gap-2 shadow-sm border border-border ${
                   editable
-                    ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200 hover:bg-amber-100'
-                    : 'bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50'
+                    ? 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                    : 'bg-background text-foreground hover:bg-accent hover:text-accent-foreground'
                 }`}
               >
                 <Pencil className="w-4 h-4" />
@@ -417,7 +417,7 @@ export default function ProjectDetails() {
                     setCopied(true);
                     setTimeout(() => setCopied(false), 3000);
                   }}
-                  className="inline-flex items-center gap-2 px-3 py-2 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg ring-1 ring-slate-200 hover:bg-slate-100 transition-all"
+                  className="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors h-9 px-3 py-2 gap-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   Copy Link
@@ -429,7 +429,7 @@ export default function ProjectDetails() {
 
             <button
               onClick={() => setAiOutput(null)}
-              className="mt-6 text-sm text-slate-500 underline hover:text-slate-700"
+              className="mt-6 text-sm text-muted-foreground underline hover:text-foreground transition-colors"
             >
               Generate New Scope
             </button>
@@ -438,16 +438,16 @@ export default function ProjectDetails() {
 
         {/* Sidebar - Project Info */}
         <div className="space-y-6">
-          <div className="card bg-white shadow-sm border-slate-200">
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wider">Client Details</h3>
+          <div className="bg-card text-card-foreground shadow-sm rounded-xl border border-border p-6">
+            <h3 className="font-semibold text-card-foreground mb-4 text-sm uppercase tracking-wider">Client Details</h3>
             <div className="space-y-3 text-sm">
               <div>
-                <span className="text-slate-400 block text-xs">Name</span>
-                <span className="text-slate-700 font-medium">{project?.client_name}</span>
+                <span className="text-muted-foreground block text-xs">Name</span>
+                <span className="text-foreground font-medium">{project?.client_name}</span>
               </div>
               <div>
-                <span className="text-slate-400 block text-xs">Email</span>
-                <span className="text-slate-700 font-medium">{project?.client_email}</span>
+                <span className="text-muted-foreground block text-xs">Email</span>
+                <span className="text-foreground font-medium">{project?.client_email}</span>
               </div>
             </div>
           </div>

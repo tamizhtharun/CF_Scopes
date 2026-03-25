@@ -82,10 +82,10 @@ export default function SharedScope() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-slate-500 text-sm">Loading scope document...</p>
+          <Loader2 className="w-10 h-10 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-muted-foreground text-sm">Loading scope document...</p>
         </div>
       </div>
     );
@@ -93,16 +93,16 @@ export default function SharedScope() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
-          <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <AlertCircle className="w-8 h-8 text-red-500" />
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-card text-card-foreground border border-border rounded-xl shadow-lg p-8 text-center">
+          <div className="w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="w-8 h-8 text-destructive" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Unable to Load Scope</h2>
-          <p className="text-slate-500 text-sm mb-6">{error}</p>
+          <h2 className="text-xl font-bold text-foreground mb-2">Unable to Load Scope</h2>
+          <p className="text-muted-foreground text-sm mb-6">{error}</p>
           <button
             onClick={fetchSharedScope}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors shadow-sm text-sm"
           >
             Try Again
           </button>
@@ -112,17 +112,17 @@ export default function SharedScope() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-background">
       {/* Minimal Public Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-background border-b border-border sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-blue-600 font-bold text-lg">
-            <div className="bg-blue-600 p-1.5 rounded-lg">
-              <FileText className="w-4 h-4 text-white" />
+          <div className="flex items-center gap-2 text-primary font-bold text-lg">
+            <div className="bg-primary p-1.5 rounded-lg">
+              <FileText className="w-4 h-4 text-primary-foreground" />
             </div>
             ScopeAI
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <ExternalLink className="w-3 h-3" />
             Shared Document
           </div>
@@ -132,8 +132,8 @@ export default function SharedScope() {
       {/* Content */}
       <main className="max-w-5xl mx-auto px-6 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-slate-900">{projectName}</h1>
-          <p className="text-sm text-slate-400 mt-1">Scope of Work — Shared View • Click any section to leave a comment</p>
+          <h1 className="text-2xl font-bold text-foreground">{projectName}</h1>
+          <p className="text-sm text-muted-foreground mt-1">Scope of Work — Shared View • Click any section to leave a comment</p>
         </div>
 
         {scopeData && (
@@ -148,8 +148,8 @@ export default function SharedScope() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white mt-12">
-        <div className="max-w-5xl mx-auto px-6 py-4 text-center text-xs text-slate-400">
+      <footer className="border-t border-border bg-background mt-12">
+        <div className="max-w-5xl mx-auto px-6 py-4 text-center text-xs text-muted-foreground">
           Powered by ScopeAI
         </div>
       </footer>

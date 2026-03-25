@@ -72,18 +72,18 @@ export default function NewProject() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <Link to="/" className="inline-flex items-center text-slate-400 hover:text-white mb-6 transition-colors">
+      <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
       </Link>
       
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Create New Project</h1>
-        <p className="text-slate-500 mt-2">Enter the client details to start scoping.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Create New Project</h1>
+        <p className="text-muted-foreground mt-2">Enter the client details to start scoping.</p>
       </div>
 
-      <div className="card bg-white shadow-md border-slate-200">
+      <div className="bg-card text-card-foreground shadow-sm rounded-xl border border-border p-6">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-600">
+          <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-md text-destructive">
             {error}
           </div>
         )}
@@ -91,7 +91,7 @@ export default function NewProject() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Client Name
               </label>
               <input
@@ -99,13 +99,13 @@ export default function NewProject() {
                 name="client_name"
                 value={formData.client_name}
                 onChange={handleChange}
-                className="input bg-white"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 required
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Client Email
               </label>
               <input
@@ -113,14 +113,14 @@ export default function NewProject() {
                 name="client_email"
                 value={formData.client_email}
                 onChange={handleChange}
-                className="input bg-white"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Client Company
             </label>
             <input
@@ -128,15 +128,15 @@ export default function NewProject() {
               name="client_company"
               value={formData.client_company}
               onChange={handleChange}
-              className="input bg-white"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               required
             />
           </div>
 
-          <div className="h-px bg-slate-100 my-6"></div>
+          <div className="h-px bg-border my-6"></div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Project Name
             </label>
             <input
@@ -144,20 +144,20 @@ export default function NewProject() {
               name="project_name"
               value={formData.project_name}
               onChange={handleChange}
-              className="input bg-white"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Project Description
             </label>
             <textarea
               name="project_description"
               value={formData.project_description}
               onChange={handleChange}
-              className="input min-h-[100px] bg-white"
+              className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               required
             />
           </div>
@@ -166,13 +166,13 @@ export default function NewProject() {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full md:w-auto min-w-[140px]"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2 w-full md:w-auto min-w-[140px] gap-2"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                    <Save className="w-4 h-4 mr-2" />
+                    <Save className="w-4 h-4" />
                     Create Project
                 </>
               )}

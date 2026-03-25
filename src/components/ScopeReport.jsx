@@ -9,7 +9,7 @@ import CommentSection from './CommentSection.jsx';
 
 // Helper: safely render any value
 function SafeRender({ value }) {
-  if (value === null || value === undefined) return <span className="text-slate-400 italic">—</span>;
+  if (value === null || value === undefined) return <span className="text-muted-foreground italic">—</span>;
   if (typeof value === 'string') return value;
   if (typeof value === 'number' || typeof value === 'boolean') return String(value);
   if (Array.isArray(value)) return value.map((v, i) => <span key={i}>{typeof v === 'string' ? v : JSON.stringify(v)}{i < value.length - 1 ? ', ' : ''}</span>);
@@ -20,14 +20,14 @@ function SafeRender({ value }) {
 // Editable text
 function EditableText({ value, onChange, editable, className = '', multiline = false, placeholder = '' }) {
   if (!editable) return <span className={className}><SafeRender value={value} /></span>;
-  const cls = `w-full px-3 py-2 bg-amber-50/50 border border-amber-200 rounded-lg text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition-all ${className}`;
+  const cls = `w-full px-3 py-2 bg-accent/5 border border-border rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all ${className}`;
   return multiline
     ? <textarea value={value || ''} onChange={e => onChange(e.target.value)} rows={3} placeholder={placeholder} className={`${cls} resize-none`} />
     : <input type="text" value={value || ''} onChange={e => onChange(e.target.value)} placeholder={placeholder} className={cls} />;
 }
 
 // Editable tag list
-function EditableTags({ items, onChange, editable, color = 'bg-slate-100 text-slate-600' }) {
+function EditableTags({ items, onChange, editable, color = 'bg-secondary text-secondary-foreground' }) {
   const [newVal, setNewVal] = useState('');
   if (!editable) {
     return (
@@ -45,28 +45,28 @@ function EditableTags({ items, onChange, editable, color = 'bg-slate-100 text-sl
       {(items || []).map((item, i) => (
         <span key={i} className={`text-[11px] px-2 py-0.5 rounded-full ${color} inline-flex items-center gap-1`}>
           {item}
-          <button onClick={() => remove(i)} className="hover:text-red-500"><X className="w-3 h-3" /></button>
+          <button onClick={() => remove(i)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
         </span>
       ))}
       <div className="inline-flex items-center gap-1">
         <input type="text" value={newVal} onChange={e => setNewVal(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), add())}
-          placeholder="Add..." className="px-2 py-0.5 text-[11px] w-24 border border-dashed border-amber-300 rounded-full bg-amber-50/50 focus:outline-none focus:border-amber-400" />
-        <button onClick={add} className="text-amber-600 hover:text-amber-700"><Plus className="w-3 h-3" /></button>
+          placeholder="Add..." className="px-2 py-0.5 text-[11px] w-24 border border-dashed border-input rounded-full bg-background focus:outline-none focus:border-primary" />
+        <button onClick={add} className="text-primary hover:text-primary/80"><Plus className="w-3 h-3" /></button>
       </div>
     </div>
   );
 }
 
 // Section wrapper with optional comment thread
-function Section({ icon: Icon, title, iconColor = "text-blue-600", sectionRef, comments, onAddComment, showComments, children }) {
+function Section({ icon: Icon, title, iconColor = "text-primary", sectionRef, comments, onAddComment, showComments, children }) {
   return (
-    <section className="bg-white rounded-xl shadow-sm ring-1 ring-slate-200 overflow-hidden">
-      <div className="flex items-center gap-3 px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-        <div className={`p-1.5 rounded-lg bg-white shadow-sm ring-1 ring-slate-200 ${iconColor}`}>
+    <section className="bg-card text-card-foreground rounded-xl shadow-sm ring-1 ring-border overflow-hidden">
+      <div className="flex items-center gap-3 px-6 py-4 border-b border-border bg-muted/30">
+        <div className={`p-1.5 rounded-lg bg-background shadow-sm ring-1 ring-border ${iconColor}`}>
           <Icon className="w-4 h-4" />
         </div>
-        <h3 className="text-base font-bold text-slate-900 tracking-tight">{title}</h3>
+        <h3 className="text-base font-bold text-foreground tracking-tight">{title}</h3>
       </div>
       <div className="p-6">
         {children}
@@ -130,20 +130,20 @@ export default function ScopeReport({ data, editable = false, onSave, saving = f
     <div className="space-y-6">
       
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-8 text-white shadow-lg">
-        <div className="flex items-center gap-2 mb-1 text-blue-200 text-sm font-medium uppercase tracking-wider">
+      <div className="bg-primary rounded-xl p-8 text-primary-foreground shadow-lg">
+        <div className="flex items-center gap-2 mb-1 text-primary-foreground/80 text-sm font-medium uppercase tracking-wider">
           <CheckCircle className="w-4 h-4" /> Scope Document
         </div>
         <h2 className="text-2xl font-bold mb-2">Project Scope of Work</h2>
-        <p className="text-blue-100 text-sm">AI-Generated • Ready for Review</p>
+        <p className="text-primary-foreground/70 text-sm">AI-Generated • Ready for Review</p>
       </div>
 
       {/* Save bar */}
       {editable && (
-        <div className="flex items-center justify-between bg-amber-50 border border-amber-200 rounded-xl px-6 py-3">
-          <span className="text-sm text-amber-700 font-medium">✏️ Editing mode — all fields are editable</span>
+        <div className="flex items-center justify-between bg-secondary border border-border rounded-xl px-6 py-3">
+          <span className="text-sm text-secondary-foreground font-medium">✏️ Editing mode — all fields are editable</span>
           <button onClick={handleSave} disabled={saving}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700 disabled:opacity-50 transition-all">
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-all">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             {saving ? 'Saving...' : 'Save Changes'}
           </button>
@@ -151,16 +151,16 @@ export default function ScopeReport({ data, editable = false, onSave, saving = f
       )}
 
       {/* Executive Summary */}
-      <Section icon={FileText} title="Executive Summary" iconColor="text-blue-600" sectionRef="summary" {...commentProps}>
-        <div className="text-slate-600 leading-relaxed text-[15px]">
+      <Section icon={FileText} title="Executive Summary" iconColor="text-primary" sectionRef="summary" {...commentProps}>
+        <div className="text-muted-foreground leading-relaxed text-[15px]">
           <EditableText value={d.summary} onChange={v => updateField('summary', v)} editable={editable} multiline />
         </div>
       </Section>
 
       {/* PRD */}
       {(d.prd || editable) && (
-        <Section icon={BookOpen} title="Product Requirements" iconColor="text-violet-600" sectionRef="prd" {...commentProps}>
-          <div className="text-slate-600 leading-relaxed text-[15px]">
+        <Section icon={BookOpen} title="Product Requirements" iconColor="text-primary" sectionRef="prd" {...commentProps}>
+          <div className="text-muted-foreground leading-relaxed text-[15px]">
             <EditableText value={d.prd} onChange={v => updateField('prd', v)} editable={editable} multiline />
           </div>
         </Section>
